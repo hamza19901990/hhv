@@ -7,8 +7,8 @@ from sklearn.ensemble import GradientBoostingRegressor
 import pickle
 
 st.write("""
-# Fiber Reinforced Polymer Flat Slab Shear
-This app predicts the **Ultimate Shear Capacity of Fiber Reinforced Polymer Flat Slab Shear**!
+# HHV Prediction of MSW
+This app predicts the **Higher Heating Value (HHV) of Municipal Solid Waste (MSW)**!
 """)
 st.write('---')
 
@@ -16,7 +16,7 @@ image = Image.open(r'soil.jpg')
 st.image(image, use_column_width=True)
 
 data = pd.read_csv(r"finalequtionsmars.csv")
-req_col_names = ["A_cm2", "bo_mm", "bo_1_5_mm", "de", "fc_Mpa", "p_percent", "Er_Gpa", "Vu_kN"]
+req_col_names = ["C_Percentage", "H_Percentage", "N_Percentage", "S_Percentage", "O_Percentage", "HHV"]
 curr_col_names = list(data.columns)
 
 mapper = {}
@@ -41,22 +41,19 @@ model.fit(X_train, y_train)
 
 st.sidebar.header('Specify Input Parameters')
 def get_input_features():
-    A_cm2 = st.sidebar.slider('A_cm2', 6.25, 1587.50, 671.10)
-    bo_mm = st.sidebar.slider('bo_mm', 280.00, 2470.00, 1496.90)
-    bo_1_5_mm = st.sidebar.slider('bo_1_5_mm', 640.00, 4608.00, 2509.18)
-    de = st.sidebar.slider('de', 36.00, 284.00, 127.89)
-    fc_Mpa = st.sidebar.slider('fc_Mpa', 22.16, 179.00, 44.72)
-    p_percent = st.sidebar.slider('p_percent', 0.13, 3.76, 0.94)
-    Er_Gpa = st.sidebar.slider('Er_Gpa', 28.40, 230.00, 74.44)
+    C_Percentage = st.sidebar.slider('C_Percentage', 6.25, 1587.50, 671.10)
+    H_Percentage = st.sidebar.slider('H_Percentage', 280.00, 2470.00, 1496.90)
+    N_Percentage = st.sidebar.slider('N_Percentage', 640.00, 4608.00, 2509.18)
+    S_Percentage = st.sidebar.slider('S_Percentage', 36.00, 284.00, 127.89)
+    O_Percentage = st.sidebar.slider('O_Percentage', 22.16, 179.00, 44.72)
+   
     
     data_user = {
-        'A_cm2': A_cm2,
-        'bo_mm': bo_mm,
-        'bo_1_5_mm': bo_1_5_mm,
-        'de': de,
-        'fc_Mpa': fc_Mpa,
-        'p_percent': p_percent,
-        'Er_Gpa': Er_Gpa
+        'C_Percentage': C_Percentage,
+        'H_Percentage': H_Percentage,
+        'N_Percentage': N_Percentage,
+        'S_Percentage': S_Percentage,
+        'O_Percentage': O_Percentage
     }
     
     features = pd.DataFrame(data_user, index=[0])
@@ -70,9 +67,9 @@ st.write(df)
 st.write('---')
 
 # Reads in saved classification model
-load_clf = pickle.load(open('new.pkl', 'rb'))
+load_clf = pickle.load(open('new(2).pkl', 'rb'))
 
-st.header('Prediction of Vu (kN)')
+st.header('Prediction of HHV (MJ/kg)')
 # Apply model to make predictions
 prediction = load_clf.predict(df)
 st.write(prediction)
