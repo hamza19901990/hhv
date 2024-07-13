@@ -59,7 +59,7 @@ st.write(df)
 st.write('---')
 
 # Reads in saved classification model
-load_clf = pickle.load(open('new(2).pkl', 'rb'))
+load_clf = pickle.load(open('new (2).pkl', 'rb'))
 
 st.header('Prediction of HHV (MJ/kg)')
 # Apply model to make predictions
