@@ -15,7 +15,7 @@ st.write('---')
 image = Image.open(r'soil.jpg')
 st.image(image, use_column_width=True)
 
-data = pd.read_csv(r"finalequtionsmars.csv")
+data = pd.read_csv(r"msw_all.csv")
 req_col_names = ["C_Percentage", "H_Percentage", "N_Percentage", "S_Percentage", "O_Percentage", "HHV"]
 curr_col_names = list(data.columns)
 
@@ -30,22 +30,14 @@ st.write(data.isna().sum())
 corr = data.corr()
 st.write(corr)
 
-X = data.iloc[:, :-1]  # Features - All columns but last
-y = data.iloc[:, -1]  # Target - Last Column
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Initialize and train the GradientBoostingRegressor
-model = GradientBoostingRegressor(learning_rate=0.5, n_estimators=100)
-model.fit(X_train, y_train)
 
 st.sidebar.header('Specify Input Parameters')
 def get_input_features():
-    C_Percentage = st.sidebar.slider('C_Percentage', 6.25, 1587.50, 671.10)
-    H_Percentage = st.sidebar.slider('H_Percentage', 280.00, 2470.00, 1496.90)
-    N_Percentage = st.sidebar.slider('N_Percentage', 640.00, 4608.00, 2509.18)
-    S_Percentage = st.sidebar.slider('S_Percentage', 36.00, 284.00, 127.89)
-    O_Percentage = st.sidebar.slider('O_Percentage', 22.16, 179.00, 44.72)
+    C_Percentage = st.sidebar.slider('C_Percentage', 9.00, 92.00, 10.00)
+    H_Percentage = st.sidebar.slider('H_Percentage', 2.00, 14.50, 3.00)
+    N_Percentage = st.sidebar.slider('N_Percentage', 0.00, 10.00, 5.00)
+    S_Percentage = st.sidebar.slider('S_Percentage', 0.00, 2.64, 2.00)
+    O_Percentage = st.sidebar.slider('O_Percentage', 0.00, 48.62, 44.72)
    
     
     data_user = {
