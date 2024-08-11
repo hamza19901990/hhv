@@ -53,10 +53,15 @@ def get_input_features():
     return features
 
 df = get_input_features()
+scaler = StandardScaler()
+df_standardized = scaler.fit_transform(df)
+
+# Converting standardized data back to DataFrame
+df_standardized = pd.DataFrame(df_standardized, columns=df.columns)
 
 # Main Panel
-st.header('Specified Input Parameters')
-st.write(df)
+st.header('Specified Input Parameters (Standardized)')
+st.write(df_standardized)
 st.write('---')
 
 # Reads in saved classification model
@@ -64,6 +69,6 @@ load_clf = pickle.load(open('new (2).pkl', 'rb'))
 
 st.header('Prediction of HHV (MJ/kg)')
 # Apply model to make predictions
-prediction = load_clf.predict(df)
+prediction = load_clf.predict(df_standardized)
 st.write(prediction)
 st.write('---')
