@@ -54,7 +54,8 @@ def get_input_features():
 
 df = get_input_features()
 scaler = StandardScaler()
-df_standardized = scaler.fit_transform(df)
+scaler.fit(data[req_col_names[:-1]])  # Fit only on the input columns of the entire dataset
+df_standardized = scaler.transform(df)
 
 # Converting standardized data back to DataFrame
 df_standardized = pd.DataFrame(df_standardized, columns=df.columns)
