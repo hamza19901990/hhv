@@ -62,7 +62,6 @@ st.write(df)
 st.write('---')
 
 # Load the scaler and the trained model
-scaler = pickle.load(open('scaler.pkl', 'rb'))
 model = pickle.load(open('new (2).pkl', 'rb'))
 
 # Standardize the input data using the loaded scaler
