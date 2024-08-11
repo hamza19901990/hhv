@@ -5,6 +5,7 @@ from PIL import Image
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import GradientBoostingRegressor
 import pickle
+from sklearn.preprocessing import StandardScaler
 
 st.write("""
 # HHV Prediction of MSW
