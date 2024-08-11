@@ -13,7 +13,7 @@ This app predicts the **Higher Heating Value (HHV) of Municipal Solid Waste (MSW
 """)
 st.write('---')
 
-image = Image.open(r'soil1.jpg')
+image = Image.open(r'SmA_gbrt.jpg')
 st.image(image, use_column_width=True)
 
 data = pd.read_csv(r"msw_all.csv")
