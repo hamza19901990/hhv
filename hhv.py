@@ -4,7 +4,6 @@ import streamlit as st
 from PIL import Image
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.preprocessing import StandardScaler
 import pickle
 
 st.write("""
@@ -40,6 +39,7 @@ def get_input_features():
     S_Percentage = st.sidebar.slider('S_Percentage', 0.00, 2.64, 2.00)
     O_Percentage = st.sidebar.slider('O_Percentage', 0.00, 48.62, 44.72)
    
+    
     data_user = {
         'C_Percentage': C_Percentage,
         'H_Percentage': H_Percentage,
@@ -53,16 +53,9 @@ def get_input_features():
 
 df = get_input_features()
 
-# Standardizing the data
-scaler = StandardScaler()
-df_standardized = scaler.fit_transform(df)
-
-# Converting standardized data back to DataFrame
-df_standardized = pd.DataFrame(df_standardized, columns=df.columns)
-
 # Main Panel
-st.header('Specified Input Parameters (Standardized)')
-st.write(df_standardized)
+st.header('Specified Input Parameters')
+st.write(df)
 st.write('---')
 
 # Reads in saved classification model
@@ -70,6 +63,6 @@ load_clf = pickle.load(open('new (2).pkl', 'rb'))
 
 st.header('Prediction of HHV (MJ/kg)')
 # Apply model to make predictions
-prediction = load_clf.predict(df_standardized)
+prediction = load_clf.predict(df)
 st.write(prediction)
 st.write('---')
